@@ -5,7 +5,7 @@ author: "Shan J."
 header-img: "img/post_ime.jpg"
 date: 2021-2-07 14:24:24.000000000 +08:00
 excerpt: "A looong week for God's Sake, while the good news is Spring comes"
-layout: post
+layout: single
 categories:
   - Side notes for work
   - Movie Review

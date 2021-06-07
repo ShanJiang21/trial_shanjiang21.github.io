@@ -5,7 +5,7 @@ author: "Shan J."
 header-img: "img/post_love_0214.jpg"
 date: 2021-2-14 17:54:24.000000000 +08:00
 excerpt: "We die. That may be the meaning of life."
-layout: post
+layout: single
 categories:
   - Side notes for work
   - life
