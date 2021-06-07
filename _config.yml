@@ -100,9 +100,6 @@ author:
   location         : "39.90°N, 116.40°E"
   email            : sj2921@columbia.edu
   links:
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:sj2921@columbia.edu"
     - label: "Website"
       icon: "fas fa-fw fa-link"
       url: "https://shanj21.com"
