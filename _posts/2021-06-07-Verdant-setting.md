@@ -7,7 +7,7 @@ date: 2021-06-14 21:18:24.000000000 +08:00
 layout: post
 categories:
   - Side notes for work
-  - Novel 
+  - Novel
 ---
 
 ### Cancel culture
