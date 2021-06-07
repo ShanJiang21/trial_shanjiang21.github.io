@@ -5,7 +5,7 @@ author: "Shan J."
 header-img: "img/post-Kalb-GrandmaCalls.jpg"
 date: 2021-2-21 11:29:24.000000000 +08:00
 excerpt: "What if Adolf Hitler cures cancer? The power of leaning-in-action"
-layout: post
+layout: single
 categories:
   - Side notes for work
   - YOLO
