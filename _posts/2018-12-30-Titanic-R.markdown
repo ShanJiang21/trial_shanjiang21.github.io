@@ -1,0 +1,134 @@
+---
+layout: post
+title: "Titanic"
+author: "Shan J."
+date: 2018-12-30 15:32:24.000000000 +09:00
+tags:
+    - Statistics
+---
+
+```{r}
+# Load packages
+library(tidyverse)
+library(formattable)
+library(gmodels)
+```
+
+## Import web-based API
+All web-based 2 APIs have always the same structure:
+they consist of a URL to a domain and a path to an endpoint.
+For instance: http://example.com/api where http://example.com is the URL and /api is the path to the endpoint.
+In recent years, JSON has become the most common answer format by far. JSON is a simple text file that uses special characters and conventions to bring structure into its contents.
+
+```{r}
+train_raw = read_csv("./data/train.csv")
+test_df = read_csv('data/test.csv')
+skimr::skim(train_raw)
+skimr::skim(test_df)
+
+# identify count of NAs in data frame
+sum(is.na(train_raw))
+sum(is.na(test_df))
+
+## For data frames, a convenient shortcut to compute the total missing values in each column is to use colSums():
+
+colSums(is.na(train_raw))
+colSums(is.na(test_df))
+
+## head of data, formatted   
+formattable(head(train_raw)) ## In python: sns.set_style('whitegrid')
+
+train_df  = train_raw %>%
+  janitor::clean_names() %>%
+  mutate(survived = as.factor(survived))
+```
+
+There are in total `nrow(train_raw )` passengers on the list, while the missing values in total are `sum(is.na(train_df))` and sum(is.na(test_df)) respectively.
+
+Actually, with a closer look at the data, we can find missing values mainly fall into the category of
+`Cabin` and ` Age`, few are in `Embarked ` in train dataframe, 1 in `Fare ` in test_df.
+
+
+## Descriptive statistics  
+```{r}
+## Survived
+library(ggplot2)
+
+## survival: 0 = No, 1 = Yes
+ggplot(train_df, aes(x = survived, stat = "count")) +
+  geom_bar(aes(fill = sex), width = 0.7) +
+  coord_flip() +
+  theme(legend.position = "top") +
+  theme_bw() +
+  scale_x_discrete(labels = c("No","Yes")) +
+  ggtitle("Survived profile of Titanic passengers")
+
+```
+
+
+### Dealing with missing value
+```{r}
+require(randomForest)
+## 1. Assign mode value for missing Embarked rows
+train_df = train_df %>%
+  mutate(embarked = ifelse(is.na(embarked), mode(embarked), embarked)) %>%
+## 2. Cabin: assign NA mark for missing entries
+  mutate(cabin = ifelse(is.na(cabin), 'u0', cabin))
+## 3. Age: an important indicator for prediction, use RandomForest
+
+
+## choose training data to predict age
+age_df = train_raw %>%
+  select('Age','Survived','Fare', 'Parch', 'SibSp', 'Pclass')
+
+age_df_notnull =  age_df %>%
+  filter( is.na(Age) == F )
+
+age_df_isnull = age_df %>%
+  filter( is.na(Age) == T )
+
+# Use RandomForestRegression to train data
+RFR = randomForest(
+  formula = Age ~ .,
+  data  = age_df_notnull)
+
+pred.Age = predict(RFR , age_df_isnull)
+
+## Insert the predicted value for Ages
+train_df = train_df %>%
+  mutate(age = ifelse(is.na(age), pred.Age, age))
+
+sum(is.na(train_df))
+```
+
+## Data analysis
+
+#### (1). **Lady First** principle
+
+```{r}
+## cross tables
+corr_df = train_df %>%
+  mutate(sex = ifelse(sex == "female", 0, 1)) %>%
+  select(survived, pclass, sex, age, sib_sp, parch, fare)
+
+with(train_df, CrossTable(sex, survived))
+
+```
+
+####  (2) Ticket class and survival rate: Pclass
+
+```{r}
+## 1 = 1st, 2 = 2nd, 3 = 3rd
+with(train_df, CrossTable( pclass, survived))
+
+## survival: 0 = No, 1 = Yes
+
+ggplot(train_df, aes(x = as.factor(pclass), stat = "count")) +
+  geom_bar(aes(fill = survived), width = 0.7) +
+  theme(legend.position = "top") +
+  theme_bw() +
+  scale_x_discrete(labels = c("1st","2nd", "3rd")) +
+  xlab("passenger classes")  +
+  ggtitle("Distribution of survival rate among 3 classes on Titanic")
+
+```
