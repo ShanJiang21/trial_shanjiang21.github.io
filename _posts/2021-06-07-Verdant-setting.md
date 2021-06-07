@@ -6,6 +6,7 @@ header:
   image:: "assets/img/post_apr_2021.JPG"
 date: 2021-06-14 21:18:24.000000000 +08:00
 layout: single
+toc: true
 categories:
   - Side notes for work
   - Novel
