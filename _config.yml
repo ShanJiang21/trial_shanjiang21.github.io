@@ -95,9 +95,9 @@ analytics:
 # Site Author
 author:
   name             : "Shan Jiang"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/images/bio-photo.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "I am an **amazing** person."
-  location         : "Somewhere"
+  location         : "📍39.90°N, 116.40°E"
   email            :
   links:
     - label: "Email"
@@ -108,16 +108,16 @@ author:
       url: "https://shanj21.com"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
-      # url: "https://twitter.com/"
+      url: "https://twitter.com/Alexand43261453"
     - label: "Facebook"
       icon: "fab fa-fw fa-facebook-square"
-      # url: "https://facebook.com/"
+      url: "https://www.facebook.com/shan.jiang.9674"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      # url: "https://github.com/"
+      url: "https://github.com/ShanJiang21/"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
-      # url: "https://instagram.com/"
+      url: "https://www.instagram.com/shan.jiang.9674/"
 
 # Site Footer
 footer:
@@ -133,7 +133,7 @@ footer:
       # url:
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
-      # url:
+      url:"https://www.instagram.com/shan.jiang.9674/"
 
 
 # Reading Files
@@ -271,6 +271,6 @@ defaults:
       layout: single
       author_profile: true
       read_time: true
-      comments: # true
+      comments: true
       share: true
       related: true
