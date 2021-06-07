@@ -2,7 +2,8 @@
 title: Klara and the Sun（by Kazuo Ishiguro）随记
 subtitle: 克拉拉和太阳
 author: "Shan J."
-header-img: "img/post_apr_2021.JPG"
+header:
+  image:: "assets/img/post_apr_2021.JPG"
 date: 2021-06-14 21:18:24.000000000 +08:00
 layout: single
 categories:
